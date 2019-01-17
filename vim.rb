@@ -37,6 +37,7 @@ class Vim < Formula
     # vim doesn't require any Python package, unset PYTHONPATH.
     ENV.delete("PYTHONPATH")
 
+    opts = []
     if build.with? "client-server"
       opts << "--with-x"
     else
@@ -56,14 +57,13 @@ class Vim < Formula
                           "--enable-cscope",
                           "--enable-terminal",
                           "--with-compiledby=Homebrew",
-                          *opts
                           "--enable-perlinterp",
                           "--enable-rubyinterp",
                           "--enable-python3interp",
                           "--enable-gui=no",
-                          "--without-x",
                           "--enable-luainterp",
-                          "--with-lua-prefix=#{Formula["lua"].opt_prefix}"
+                          "--with-lua-prefix=#{Formula["lua"].opt_prefix}",
+                          *opts
     system "make"
     # Parallel install could miss some symlinks
     # https://github.com/vim/vim/issues/1031
