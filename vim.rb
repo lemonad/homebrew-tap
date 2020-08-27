@@ -2,15 +2,15 @@ class Vim < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://www.vim.org/"
   # vim should only be updated every 50 releases on multiples of 50
-  url "https://github.com/vim/vim/archive/v8.1.0750.tar.gz"
-  sha256 "3ae7deca957d48a61b72bd34c6ee9869583a4978bc27367b023a1cae506899be"
+  url "https://github.com/vim/vim/archive/v8.2.1500.tar.gz"
+  sha256 "6df74bbccf6d60d4ee323475ed62ba56e42f28a52b28ac8862b43ec4fbcaa1dd"
+  license "Vim"
   head "https://github.com/vim/vim.git"
 
   bottle do
-    cellar :any
-    sha256 "761bc4465135ba23ac3c64a418bb3a07e85ca2f36a350c2b8e64fe818043ff54" => :mojave
-    sha256 "3e73d86d83522d1b292ac2bda631a3c41fd99dae76ce236ca8ab8a968b5c05c9" => :high_sierra
-    sha256 "809c0dc03514e82c2b45fb94e854bb0e3ee6b0939e845382a2e6a645b8619526" => :sierra
+    sha256 "1f1f13ec4a41c2a99e1511e96daf4e5aa113231b95ef1f703f5c021ff11c3b2a" => :catalina
+    sha256 "ba16d3edf006b7a0f34bd474e8822d09c1cbc618cecf09d788a1a483d6f592b0" => :mojave
+    sha256 "a14a1bb6284d7c9d27a1792c178c1ee03aa8a0a69db19278e7a73aac84075d83" => :high_sierra
   end
 
   option "with-client-server", "Enable client/server mode"
@@ -18,18 +18,20 @@ class Vim < Formula
   depends_on "gettext"
   depends_on "lua"
   depends_on "perl"
-  depends_on "python"
+  depends_on "python@3.8"
   depends_on "ruby"
   depends_on :x11 if build.with? "client-server"
 
+  uses_from_macos "ncurses"
+
   conflicts_with "ex-vi",
-    :because => "vim and ex-vi both install bin/ex and bin/view"
+    because: "vim and ex-vi both install bin/ex and bin/view"
 
   conflicts_with "macvim",
-    :because => "vim and macvim both install vi* binaries"
+    because: "vim and macvim both install vi* binaries"
 
   def install
-    ENV.prepend_path "PATH", Formula["python"].opt_libexec/"bin"
+    ENV.prepend_path "PATH", Formula["python@3.8"].opt_libexec/"bin"
 
     # https://github.com/Homebrew/homebrew-core/pull/1046
     ENV.delete("SDKROOT")
