@@ -21,7 +21,7 @@ class Vim < Formula
   depends_on "perl"
   depends_on "python@3.9"
   depends_on "ruby"
-  depends_on "xquartz" if build.with? "client-server"
+  depends_on "libx11" if build.with? "client-server"
 
   uses_from_macos "ncurses"
 
