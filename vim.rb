@@ -43,7 +43,7 @@ class Vim < Formula
     opts = []
     if build.with? "client-server"
       opts << "--with-x"
-      opts << "--x-includes=/opt/X11/include/X11"
+      opts << "--x-includes=/opt/X11/include"
       opts << "--x-libraries=/opt/X11/lib"
     else
       opts << "--without-x"
