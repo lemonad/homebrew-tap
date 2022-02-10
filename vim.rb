@@ -1,17 +1,20 @@
 class Vim < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://www.vim.org/"
-  # vim should only be updated every 25 releases on multiples of 25
-  url "https://github.com/vim/vim/archive/v8.2.3075.tar.gz"
-  sha256 "500d52af2cacfd39d403547c68677d99f2c7cfb3e18d99bc374d7a89d5d5d6b2"
+  # vim should only be updated every 50 releases on multiples of 50
+  url "https://github.com/vim/vim/archive/v8.2.4300.tar.gz"
+  sha256 "00e95d6bda783c2119a10cb25ba50d44a1378d372d7b8546de8b5746ac89db5a"
   license "Vim"
-  head "https://github.com/vim/vim.git"
+  revision 1
+  head "https://github.com/vim/vim.git", branch: "master"
 
   bottle do
-    sha256 arm64_big_sur: "ff2aa9e157895b8266f695c4d87bbf4669ec798546b86dd5ab55d471d6ffd3ef"
-    sha256 big_sur:       "a42064ecac026679b3d168f908b1dc47002d636339c23fa6fb6a91d5dd1916cf"
-    sha256 catalina:      "784916b71abf53e1ad373f52497b51e60f270441c101e403e8723775be24284c"
-    sha256 mojave:        "ef7b7f8e9bb78a05552bebacd90585f6b2154085d20de22f6388f9e595d667aa"
+    sha256 arm64_monterey: "759bb62427355e68bcdde43b941b4329c14cc4e9f4a8bbdba0469a4fe354d53d"
+    sha256 arm64_big_sur:  "16270ba0f756ec59fe80e643acff7a3bab80e10be824bbaf02457edce87674c7"
+    sha256 monterey:       "7bf9f1efe6438c870095192a53dbbd9891898acd6c1ff296df93a7e8a17469ab"
+    sha256 big_sur:        "1286dc1bc015241c72010d904b7ad789822e7fcca8bedd0a6080d344b99d5402"
+    sha256 catalina:       "aa4a042aca20e5ddbf8f96cf182935c89310d4548b83ae04be4018bb6c22ee19"
+    sha256 x86_64_linux:   "714018114c9fbd30b3728cbb1c40c17e41f6d3d99f5d27687cc519f144003118"
   end
   # env:std
 
@@ -19,13 +22,11 @@ class Vim < Formula
 
   depends_on "gettext"
   depends_on "lua"
+  depends_on "ncurses"
   depends_on "perl"
-  depends_on "python@3.9"
+  depends_on "python@3.10"
   depends_on "ruby"
   depends_on "libx11" if build.with? "client-server"
-
-  # uses_from_macos "ncurses"
-  depends_on "ncurses"
 
   conflicts_with "ex-vi",
     because: "vim and ex-vi both install bin/ex and bin/view"
@@ -34,7 +35,7 @@ class Vim < Formula
     because: "vim and macvim both install vi* binaries"
 
   def install
-    ENV.prepend_path "PATH", Formula["python@3.9"].opt_libexec/"bin"
+    ENV.prepend_path "PATH", Formula["python@3.10"].opt_libexec/"bin"
 
     # https://github.com/Homebrew/homebrew-core/pull/1046
     ENV.delete("SDKROOT")
